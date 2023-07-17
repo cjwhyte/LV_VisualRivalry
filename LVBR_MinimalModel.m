@@ -113,8 +113,8 @@ GABAa_window = 500;
 %----- input into ring
 
 % poisson process drive to soma
-fr_L = 500;                           % L firing rate in hertz
-fr_R = 500;                           % R firing rate in hertz
+fr_L = 475;                           % L firing rate in hertz
+fr_R = 475;                           % R firing rate in hertz
 tsim = sim_time/1000;                 % simulation length (seconds)
 dt = 1/1000;                          % time step
 nbins = floor(tsim/dt);               % time bins
