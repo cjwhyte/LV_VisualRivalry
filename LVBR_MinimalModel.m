@@ -224,8 +224,8 @@ for t = 1:(sim_time-1)
     
     % conductance
     Mg_gate = (1./(1 + Mg.*beta.*exp(-alpha*ve(:,t))));
-    g_syn_tot = g_syn_e_e_AMPA(:,t) + Mg_gate.*g_syn_e_e_NMDA(:,t) + g_syn_i_e_GABAa(:,t) + Mg_gate.*I_ext_NMDA(:,t) + I_ext_AMPA(:,t) + g_syn_adapt(:,t) + eps; % total condunctance
-    E_tot = (g_syn_e_e_AMPA(:,t).*E_exc + Mg_gate.*g_syn_e_e_NMDA(:,t).*E_exc + g_syn_i_e_GABAa(:,t).*E_inh + Mg_gate.*I_ext_NMDA(:,t).*E_exc + I_ext_AMPA(:,t).*E_exc + g_syn_adapt(:,t).*E_adapt)./g_syn_tot; % total reverse potential
+    g_syn_tot = g_syn_e_e_AMPA(:,t) + Mg_gate.*min(g_syn_e_e_NMDA(:,t),130) + g_syn_i_e_GABAa(:,t) + Mg_gate.*I_ext_NMDA(:,t) + I_ext_AMPA(:,t) + g_syn_adapt(:,t) + eps; % total condunctance
+    E_tot = (g_syn_e_e_AMPA(:,t).*E_exc + Mg_gate.*min(g_syn_e_e_NMDA(:,t),130).*E_exc + g_syn_i_e_GABAa(:,t).*E_inh + Mg_gate.*I_ext_NMDA(:,t).*E_exc + I_ext_AMPA(:,t).*E_exc + g_syn_adapt(:,t).*E_adapt)./g_syn_tot; % total reverse potential
     % membrane potential
     ve(:,t+1) = (ve(:,t) + (ke.*(ve(:,t) - ve_r).*(ve(:,t) - ve_t) - ue(:,t) + I_ext_const + g_syn_tot.*E_tot)./Ce)...
                 ./(1 + (g_syn_tot./Ce));
